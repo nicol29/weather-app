@@ -4,6 +4,12 @@ const forecastDiv = document.querySelector('.forecast');
 
 const searchBox = document.querySelector('input');
 
+let bgImage = document.querySelector('.bg-image');
+let weatherIcon = document.querySelector('.weather-icon');
+
+const allForecastOptions = [];
+
+
 let fetchApi = async (search) => {
   try {
     let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&APPID=cdf8ab7f2508898c13405c4a0cf79e4c`, { mode: "cors" });
@@ -34,8 +40,25 @@ let gatherWeatherInfo = async (resToConvert) => {
 
 let populateDOM = (requiredInfo) => {
   locationDiv.textContent = requiredInfo.location;
-  temperatureDiv.textContent = requiredInfo.temperature + ' ℃';
+  temperatureDiv.textContent = requiredInfo.temperature + '°';
   forecastDiv.textContent = requiredInfo.forecast;
+
+  switch(requiredInfo.forecast) {
+    case 'Clouds':
+      bgImage.src = './images/clouds.jpg';
+      weatherIcon.src = './images/weather-cloudy.png'
+      break;
+    case 'Clear':
+      bgImage.src = './images/clear.jpg';
+      weatherIcon.src = './images/weather-sunny.png'
+      break;
+    case 'Rain':
+      bgImage.src = './images/rain.jpg';
+      weatherIcon.src = './images/weather-pouring.png'
+      break;
+    default:
+      bgImage.src = './images/storm.jpg';
+  }
 }
 
 fetchApi('Dublin')
