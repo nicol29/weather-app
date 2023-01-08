@@ -1,3 +1,5 @@
+const searchBox = document.querySelector('input');
+
 let fetchApi = async (search) => {
   try {
     let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&APPID=cdf8ab7f2508898c13405c4a0cf79e4c`, { mode: "cors" });
@@ -15,9 +17,9 @@ let gatherWeatherInfo = async (resToConvert) => {
     let info = await resToConvert.json();
 
     let requiredInfo = {
-      location: `${info.name}`,
+      location: info.name,
       temperature: `${Math.round(info.main.temp)}`,
-      forecast: `${info.weather[0].main}`
+      forecast: info.weather[0].main
     };
 
     return requiredInfo;
@@ -30,3 +32,10 @@ fetchApi('Dublin')
   .then(gatherWeatherInfo)
   .then((requiredInfo) => console.log(requiredInfo));
 
+searchBox.addEventListener('keypress', (e) => {
+  if(e.key === 'Enter') {
+    fetchApi(searchBox.value)
+      .then(gatherWeatherInfo)
+      .then((requiredInfo) => console.log(requiredInfo));
+  }
+});
