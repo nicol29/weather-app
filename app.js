@@ -14,8 +14,6 @@ let fetchApi = async (search) => {
   try {
     let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&APPID=cdf8ab7f2508898c13405c4a0cf79e4c`, { mode: "cors" });
 
-      // let imgResult = await fetch(`http://openweathermap.org/img/wn/${dublinWeather.weather[0].icon}@2x.png`, { mode: "cors" });
-      // img.src = imgResult.url;
       return response;
   } catch (err) {
     console.log(`You encountered the following error: ${err}`);
