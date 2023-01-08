@@ -16,3 +16,8 @@ img {
   position: absolute;
   bottom: 400px;
 }
+
+.display-basic-weather {
+  position: absolute;
+  bottom: 700px;
+}

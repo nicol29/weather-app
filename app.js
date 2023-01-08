@@ -1,3 +1,7 @@
+const locationDiv = document.querySelector('.location');
+const temperatureDiv = document.querySelector('.temperature');
+const forecastDiv = document.querySelector('.forecast');
+
 const searchBox = document.querySelector('input');
 
 let fetchApi = async (search) => {
@@ -28,14 +32,20 @@ let gatherWeatherInfo = async (resToConvert) => {
   }
 }
 
+let populateDOM = (requiredInfo) => {
+  locationDiv.textContent = requiredInfo.location;
+  temperatureDiv.textContent = requiredInfo.temperature + ' ℃';
+  forecastDiv.textContent = requiredInfo.forecast;
+}
+
 fetchApi('Dublin')
   .then(gatherWeatherInfo)
-  .then((requiredInfo) => console.log(requiredInfo));
+  .then((requiredInfo) => populateDOM(requiredInfo));
 
 searchBox.addEventListener('keypress', (e) => {
   if(e.key === 'Enter') {
     fetchApi(searchBox.value)
       .then(gatherWeatherInfo)
-      .then((requiredInfo) => console.log(requiredInfo));
+      .then((requiredInfo) => populateDOM(requiredInfo));
   }
 });
